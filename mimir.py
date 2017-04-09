@@ -1,6 +1,8 @@
 import datetime
 from the_well import *
 
+from skesklearn import linear_model
+
 class Mimir:
 	def __init__(self, matrix, year):
 		self.matrix = matrix
@@ -35,3 +37,6 @@ class Mimir:
 	# 	else:
 	# 		last_shift  = 0.0
 	# 		last_amount = 0.0
+
+	# def think(self):
+	# 	log_reg = linear_model.LogisticRegression()
