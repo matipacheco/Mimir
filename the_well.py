@@ -1,6 +1,12 @@
 from peewee import *
 import settings
+
+#####################################
+# Problema: librería sólo accesible
+#						como root (sudo)
+#####################################
 import MySQLdb
+#####################################
 
 # CREATE TABLE dollar_records (
 #     id INT NOT NULL AUTO_INCREMENT,
