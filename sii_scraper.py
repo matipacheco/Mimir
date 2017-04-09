@@ -1,33 +1,33 @@
 import re
 import numpy
 import scrapy
-
-class BDInserter:
-	def __init__(self, matrix):
-		self.matrix = matrix
-		
+from mimir import *
 
 class SiiSpider(scrapy.Spider):
+	start_urls  = []
 	name 				= 'siispider'
-	years 			= range(1990,2018)
-	start_urls 	= ["http://www.sii.cl/pagina/valores/dolar/dolar1990.htm"]
+	years 			= [range(1990,2018)[0]]
 
-	# for year in years:
-	# 	start_urls.append("http://www.sii.cl/pagina/valores/dolar/dolar" + str(year) +".htm")
+	for year in years:
+		start_urls.append("http://www.sii.cl/pagina/valores/dolar/dolar" + str(year) +".htm")
 
 	def parse(self, response):
 		matrix = numpy.array([])
 
-		regex 	= "<td>(.+?)</td>"
-		pattern = re.compile(regex)
+		td_regex 	 = "<td>(.+?)</td>"
+		td_pattern = re.compile(td_regex)
 
+		url_regex   = "\d+"
+		url_pattern = re.compile(url_regex)
+		url_year 		= int(re.findall( url_pattern, response.url)[0])
+		
 		rows = response.xpath('///table[@class="tabla"]/tbody/tr')
 		
 		for row in rows:
 			amounts = row.xpath('./td').extract()
 
 			for amount in amounts:
-				parsed_amount = re.findall(pattern, amount)
+				parsed_amount = re.findall(td_pattern, amount)
 
 				if not parsed_amount:
 					matrix = numpy.append(matrix, 0)
@@ -39,6 +39,6 @@ class SiiSpider(scrapy.Spider):
 		matrix = matrix[:-12]
 		matrix = numpy.reshape(matrix,(31, 12))
 		matrix = numpy.transpose(matrix)
-		
-		inserter = BDInserter(matrix)
-		# inserter.insert_on_bd()
+
+		mimir = Mimir(matrix, url_year)
+		mimir.read()
