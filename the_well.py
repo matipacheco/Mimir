@@ -1,28 +1,13 @@
-from peewee import *
 import settings
-
-#####################################
-# Problema: librería sólo accesible
-#						como root (sudo)
-#####################################
-import MySQLdb
-#####################################
-
-# CREATE TABLE dollar_records (
-#     id INT NOT NULL AUTO_INCREMENT,
-#     amount DECIMAL(10),
-#     shift  DECIMAL(10),
-#     date   DATETIME,
-#    	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-#    	PRIMARY KEY (id)
-# );
+from peewee import *
+from MySQLdb import *
 
 db = MySQLDatabase( settings.DATABASE_NAME,
 										user 		= settings.DATABASE_USER,
 										passwd 	= settings.DATABASE_PASS,
 										host 		= settings.DATABASE_HOST
 									)
-		
+
 class DollarRecord(Model):
 	id      = IntegerField()
 	amount  = FloatField()
