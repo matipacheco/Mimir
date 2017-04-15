@@ -1,14 +1,15 @@
 import re
 import numpy
 import scrapy
-import datetime
 
-from mimir import *
+from manager  import *
+from inserter import *
+from datetime import date
 
 class SiiSpider(scrapy.Spider):
 	start_urls  = []
 	name 				= 'siispider'
-	year  			= datetime.date.today().year
+	year  			= date.today().year
 
 	start_urls.append("http://www.sii.cl/pagina/valores/dolar/dolar" + str(year) +".htm")
 
@@ -45,5 +46,8 @@ class SiiSpider(scrapy.Spider):
 		matrix = numpy.reshape(matrix,(31, 12))
 		matrix = numpy.transpose(matrix)
 
-		mimir = Mimir(matrix, self.year)
-		mimir.read()
+		manager = Manager(matrix, self.year)
+		manager.insert()
+
+		# amounts = manager.get_amounts()
+		# shifts  = manager.get_shifts()
