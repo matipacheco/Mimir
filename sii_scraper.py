@@ -48,6 +48,3 @@ class SiiSpider(scrapy.Spider):
 
 		manager = Manager(matrix, self.year)
 		manager.insert()
-
-		# amounts = manager.get_amounts()
-		# shifts  = manager.get_shifts()
