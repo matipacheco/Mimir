@@ -1,7 +1,7 @@
 import datetime
-from the_well import *
 
-from skesklearn import linear_model
+from the_well import *
+from sklearn 	import linear_model
 
 class Mimir:
 	def __init__(self, matrix, year):
@@ -9,17 +9,26 @@ class Mimir:
 		self.year  	= year
 
 	def read(self):
-		month = 1
+		last_record 			= DollarRecord.select().order_by(DollarRecord.id.desc()).get()
+		last_record_date 	= last_record.date
+		month 						= 1
+
 		for month_amounts in self.matrix:
 			day = 1
 			
 			for amount in month_amounts:
 				try:
-					date = datetime.date(self.year, month, day).isoformat()
-					if amount == 0:
-						DollarRecord.create(amount = None, date = date)
+					date = datetime.date(self.year, month, day)
+					
+					if last_record_date < date < datetime.date.today():
+						if amount == 0:
+							DollarRecord.create(amount = None, date = date.isoformat())
+						
+						else:
+							DollarRecord.create(amount = amount, date = date.isoformat())
+
 					else:
-						DollarRecord.create(amount = amount, date = date)
+						return
 
 				except ValueError:
 					break
@@ -29,7 +38,7 @@ class Mimir:
 			month += 1
 
 	# def set_shifts(self):
-	# 	last_record = DollarRecord.select().order_by(DollarRecord.id.desc())
+	# 	last_record = DollarRecord.select(date).order_by(DollarRecord.id.desc())
 
 	# 	if last_record.exists():
 	# 		last_shift  = last_record.get().shift

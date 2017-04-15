@@ -1,4 +1,5 @@
 import settings
+
 from peewee import *
 from MySQLdb import *
 
