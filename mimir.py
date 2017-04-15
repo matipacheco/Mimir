@@ -1,51 +1,31 @@
+import numpy
 import datetime
 
 from the_well import *
 from sklearn 	import linear_model
 
 class Mimir:
-	def __init__(self, matrix, year):
-		self.matrix = matrix
-		self.year  	= year
+  def __init__(self, model):
+    self.model = model
+  
+  def train(self):
+		records = DollarRecord.select().where(DollarRecord.amount != None)
+		dates   = numpy.array([])
+		amounts = numpy.array([])
 
-	def read(self):
-		last_record 			= DollarRecord.select().order_by(DollarRecord.id.desc()).get()
-		last_record_date 	= last_record.date
-		month 						= 1
-
-		for month_amounts in self.matrix:
-			day = 1
+		for record in records:
+			dates   = numpy.append(dates, int(record.date.strftime('%s')))
+			amounts = numpy.append(amounts, record.amount)
 			
-			for amount in month_amounts:
-				try:
-					date = datetime.date(self.year, month, day)
-					
-					if last_record_date < date < datetime.date.today():
-						if amount == 0:
-							DollarRecord.create(amount = None, date = date.isoformat())
-						
-						else:
-							DollarRecord.create(amount = amount, date = date.isoformat())
+			dates   = numpy.reshape(dates, (-1, 1))
+			amounts = numpy.reshape(amounts, (-1, 1))
 
-					else:
-						return
+			model = linear_model.LinearRegression(fit_intercept = True, copy_X = True)
+			model.fit(dates, amounts)
 
-				except ValueError:
-					break
-				
-				day += 1
-
-			month += 1
-
-	# def set_shifts(self):
-	# 	last_record = DollarRecord.select(date).order_by(DollarRecord.id.desc())
-
-	# 	if last_record.exists():
-	# 		last_shift  = last_record.get().shift
-	# 		last_amount = last_record.get().amount
-	# 	else:
-	# 		last_shift  = 0.0
-	# 		last_amount = 0.0
-
-	# def think(self):
-	# 	log_reg = linear_model.LogisticRegression()
+		self.model = model
+  
+  def predict(self, date):
+  	date 			 = numpy.reshape(date, (-1, 1))
+  	prediction = self.model.predict(date)
+  	return prediction
