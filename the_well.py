@@ -12,16 +12,19 @@ from MySQLdb import *
 #    	PRIMARY KEY (id)
 # );
 
+# ALTER TABLE dollar_records ADD interpolated_amount FLOAT AFTER amount;
+
 db = MySQLDatabase( settings.DATABASE_NAME,
 										user 		= settings.DATABASE_USER,
 										passwd 	= settings.DATABASE_PASS,
 										host 		= settings.DATABASE_HOST )
 
 class DollarRecord(Model):
-	id      = IntegerField()
-	amount  = FloatField()
-	shift		= FloatField()
-	date 		= DateField()
+	id      						= IntegerField()
+	amount  						= FloatField()
+	interpolated_amount = FloatField()
+	shift								= FloatField()
+	date 								= DateField()
 	class Meta:
 		database = db
 		db_table = 'dollar_records'
