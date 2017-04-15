@@ -9,23 +9,24 @@ class Mimir:
     self.model = model
   
   def train(self):
-		records = DollarRecord.select().where(DollarRecord.amount != None)
+		records = DollarRecord.select().order_by(DollarRecord.id.asc())
 		dates   = numpy.array([])
-		amounts = numpy.array([])
+		shifts  = numpy.array([])
 
 		for record in records:
-			dates   = numpy.append(dates, int(record.date.strftime('%s')))
-			amounts = numpy.append(amounts, record.amount)
-			
-			dates   = numpy.reshape(dates, (-1, 1))
-			amounts = numpy.reshape(amounts, (-1, 1))
+			dates  = numpy.append(dates, int(record.date.strftime('%s')))
+			shifts = numpy.append(shifts, record.shift)
 
-			model = linear_model.LinearRegression(fit_intercept = True, copy_X = True)
-			model.fit(dates, amounts)
+		dates  = numpy.reshape(dates,  (-1, 1))
+		shifts = numpy.reshape(shifts, (-1, 1))
+
+		model = linear_model.LinearRegression(fit_intercept = True, copy_X = True)
+		model.fit(dates, shifts)
 
 		self.model = model
   
   def predict(self, date):
+  	# m.predict([int(datetime.date(year, month, day).strftime('%s'))])
   	date 			 = numpy.reshape(date, (-1, 1))
   	prediction = self.model.predict(date)
   	return prediction
