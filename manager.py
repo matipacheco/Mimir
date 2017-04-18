@@ -9,9 +9,9 @@ class Manager:
 		self.year  	= year
 
 	def insert(self):
-		last_record 			= DollarRecord.select().order_by(DollarRecord.id.desc()).get()
-		last_record_date 	= last_record.date
-		month 						= 1
+		last_record      = DollarRecord.select().order_by(DollarRecord.id.desc()).get()
+		last_record_date = last_record.date
+		month            = 1
 
 		for month_amounts in self.matrix:
 			day = 1
@@ -48,7 +48,7 @@ class Manager:
 			else:
 				amounts = numpy.append(amounts, record.amount)
 		
-		nans 					= numpy.isnan(amounts)
+		nans          = numpy.isnan(amounts)
 		amounts[nans] = numpy.interp(numpy.flatnonzero(nans), numpy.flatnonzero(~nans), amounts[~nans])
 
 		amount = amounts[0]
@@ -56,7 +56,7 @@ class Manager:
 		for index in range(0, len(amounts)):
 			shift  = amounts[index] - amount
 			
-			records[index].shift 							 = shift
+			records[index].shift               = shift
 			records[index].interpolated_amount = amounts[index]
 			records[index].save()
 

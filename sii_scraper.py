@@ -7,16 +7,16 @@ from inserter import *
 from datetime import date
 
 class SiiSpider(scrapy.Spider):
-	start_urls  = []
-	name 				= 'siispider'
-	year  			= date.today().year
+	start_urls = []
+	name       = 'siispider'
+	year       = date.today().year
 
 	start_urls.append("http://www.sii.cl/pagina/valores/dolar/dolar" + str(year) +".htm")
 
 	def parse(self, response):
 		matrix = numpy.array([])
 
-		td_regex 	 = "<td(.*)>(.+?)</td>"
+		td_regex   = "<td(.*)>(.+?)</td>"
 		td_pattern = re.compile(td_regex)
 
 		rows = response.xpath('///table[@class="tabla"]/tbody/tr')
@@ -33,8 +33,8 @@ class SiiSpider(scrapy.Spider):
 				
 					else:
 						data, parsed_amount = parsed_amount[0]
-						parsed_amount 			= str(parsed_amount)
-						parsed_amount 			= float(parsed_amount.replace(',', '.'))
+						parsed_amount       = str(parsed_amount)
+						parsed_amount       = float(parsed_amount.replace(',', '.'))
 
 				except UnicodeEncodeError:
 					parsed_amount = 0
