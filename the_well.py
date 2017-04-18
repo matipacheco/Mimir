@@ -17,7 +17,8 @@ from MySQLdb import *
 db = MySQLDatabase( settings.DATABASE_NAME,
 										user 		= settings.DATABASE_USER,
 										passwd 	= settings.DATABASE_PASS,
-										host 		= settings.DATABASE_HOST )
+										host 		= settings.DATABASE_HOST
+									)
 
 class DollarRecord(Model):
 	id      						= IntegerField()

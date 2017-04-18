@@ -1,10 +1,7 @@
 import re
-import numpy
 import scrapy
 
 from manager  import *
-from inserter import *
-from datetime import date
 
 class SiiSpider(scrapy.Spider):
 	start_urls = []
