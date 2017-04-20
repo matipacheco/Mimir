@@ -19,7 +19,7 @@ class Manager:
 			for amount in month_amounts:
 				try:
 					date = datetime.date(self.year, month, day)
-					
+
 					if last_record_date < date < datetime.date.today():
 						if amount == 0:
 							DollarRecord.create(amount = None, date = date.isoformat())
@@ -27,13 +27,17 @@ class Manager:
 						else:
 							DollarRecord.create(amount = amount, date = date.isoformat())
 
+					elif date > datetime.date.today():
+						break
+
 					else:
-						return
+						continue
 
 				except ValueError:
 					break
-				
-				day += 1
+
+				finally:
+					day += 1
 
 			month += 1
 
