@@ -8,7 +8,19 @@ class Manager:
 		self.matrix = matrix
 		self.year  	= year
 
-	def insert(self):
+##########################################################
+# Descricion:
+# Inserta una entrada en la tabla dollar_records.
+##########################################################
+	def insert_copper_record(self, parsed_amount):
+		CopperRecord.create(amount = parsed_amount, date = datetime.date.today().isoformat())
+
+
+##########################################################
+# Descricion:
+# Inserta una entrada en la tabla dollar_records.
+##########################################################
+	def insert_dollar_record(self):
 		last_record      = DollarRecord.select().order_by(DollarRecord.id.desc()).get()
 		last_record_date = last_record.date
 		month            = 1
@@ -41,7 +53,14 @@ class Manager:
 
 			month += 1
 
-	def initial_setup(self):
+
+##########################################################
+# Descricion:
+# Setea los interpolated_amounts y shifts. Estaba pensado
+# para ser ejecutado una unica vez, pues despues de este
+# punto se empieza a predecir los valores.
+##########################################################
+	def copper_records_setup(self):
 		records = DollarRecord.select().order_by(DollarRecord.id.asc())
 		amounts = numpy.array([])
 
@@ -65,4 +84,11 @@ class Manager:
 			records[index].save()
 
 			amount = amounts[index]
-		
+
+
+##########################################################
+# Descricion:
+# Lee las planillas excel con los valores de libra de
+# cobre y los inserta en la tabla copper_records.
+##########################################################
+#	def copper_records_setup(self):

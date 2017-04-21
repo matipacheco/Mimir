@@ -14,6 +14,14 @@ from MySQLdb import *
 
 # ALTER TABLE dollar_records ADD interpolated_amount FLOAT AFTER amount;
 
+# CREATE TABLE copper_records (
+#     id INT NOT NULL AUTO_INCREMENT,
+#     amount FLOAT,
+#     date   DATE,
+#    	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#    	PRIMARY KEY (id)
+# );
+
 db = MySQLDatabase( settings.DATABASE_NAME,
 										user 		= settings.DATABASE_USER,
 										passwd 	= settings.DATABASE_PASS,
@@ -21,11 +29,21 @@ db = MySQLDatabase( settings.DATABASE_NAME,
 									)
 
 class DollarRecord(Model):
-	id      						= IntegerField()
-	amount  						= FloatField()
+	id                  = IntegerField()
+	amount              = FloatField()
 	interpolated_amount = FloatField()
-	shift								= FloatField()
-	date 								= DateField()
+	shift               = FloatField()
+	date                = DateField()
 	class Meta:
 		database = db
 		db_table = 'dollar_records'
+
+class CopperRecord(Model):
+	id                  = IntegerField()
+	amount              = FloatField()
+	interpolated_amount = FloatField()
+	shift               = FloatField()
+	date                = DateField()
+	class Meta:
+		database = db
+		db_table = 'copper_records'

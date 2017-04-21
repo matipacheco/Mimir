@@ -1,12 +1,12 @@
 import re
 import scrapy
 
-from manager  import *
+from manager import *
 
 class SiiSpider(scrapy.Spider):
 	start_urls = []
 	name       = 'siispider'
-	year       = date.today().year
+	year       = datetime.date.today().year
 
 	start_urls.append("http://www.sii.cl/pagina/valores/dolar/dolar" + str(year) +".htm")
 
@@ -44,4 +44,4 @@ class SiiSpider(scrapy.Spider):
 		matrix = numpy.transpose(matrix)
 
 		manager = Manager(matrix, self.year)
-		manager.insert()
+		manager.insert_dollar_record()
