@@ -1,0 +1,43 @@
+-----------------------------------------------------
+API-SBIF (http://api.sbif.cl/documentacion/Dolar.html)
+-----------------------------------------------------
+API key: 9eb74377c6a59a984256596691c539ec31ffb2ff
+
+
+-----------------------------------------------------
+Virtualenv
+-----------------------------------------------------
+http://docs.python-guide.org/en/latest/dev/virtualenvs/
+
+sudo apt-get install python3-pip
+pip3 install virtualenv
+
+cd Mimir
+virtualenv Mimir
+virtualenv -p /usr/bin/python3.4 Mimir
+
+source Mimir/bin/activate
+
+
+-----------------------------------------------------
+Dependencias
+-----------------------------------------------------
+http://docs.peewee-orm.com/en/latest/
+pip3 install peewee
+
+https://github.com/PyMySQL/PyMySQL
+pip3 install PyMySQL
+
+pip3 install mysqlclient
+pip3 install tensorflow	
+pip3 install theano
+pip3 install keras
+
+De todas formas, las dependencias de la aplicación están en requirements.txt
+
+-----------------------------------------------------
+Uso
+-----------------------------------------------------
+
+1) python3 mimirs_well.py
+2) python3 brokkr_the_blacksmith.py
