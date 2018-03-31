@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import sbif_manager
 from mimirs_well import DollarRecord
 
@@ -43,6 +46,7 @@ class Brokkr(object):
 
 			current_amount = dollar_records[index].amount
 
+
 	##########################################################
 	# 	Descrición:
 	# 	Método encargado de poblar la base de datos con el
@@ -51,6 +55,7 @@ class Brokkr(object):
 	def forge_todays_record(self):
 		dollar_records = sbif_manager.get_todays_dollar_record()
 		forge(dollar_records)
+
 
 	##########################################################
 	# 	Descrición:
