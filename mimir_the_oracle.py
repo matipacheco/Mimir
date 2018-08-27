@@ -9,7 +9,9 @@ from numpy import array, append, reshape
 from sklearn.preprocessing import MinMaxScaler
 
 from keras.models import Sequential
+from keras.models import model_from_json
 from keras.layers import Dense, LSTM, Dropout
+
 
 class Mimir:
 
@@ -67,6 +69,7 @@ class Mimir:
 		regressor.fit(x_train, y_train, epochs = 50, batch_size = 32)
 
 		self.regressor = regressor
+		self.store_model()
 
 
 	##########################################################
@@ -89,23 +92,38 @@ class Mimir:
 		shifts_array       = shifts_array.reshape(-1, 1)
 		total_shifts_array = total_shifts_array.reshape(-1, 1)
 
+
+	##########################################################
+	# Descripción:
+	# Método encargado de guardar el modelo.
+	##########################################################
+	def store_model(self):
+		model      = self.regressor
+		model_json = model.to_json()
+
+		with open("model/model.json", "w") as model_file:
+			model_file.write(model_json)
+
+		model.save_weights("model/model.h5")
+
+
 	##########################################################
 	# Descripción:
 	# Método encargado de realizar las predicciones del modelo.
 	##########################################################
 	def predict(self):
-		return
+		model_file = open("model/model.json", "r")
+		model_json = model_file.read()
 
+		model_file.close()
 
-	##########################################################
-	# Descripción:
-	# Método encargado de realizar las predicciones del modelo.
-	##########################################################
-	def store(self):
+		model = model_from_json(model_json)
+		model.load_weights("model.h5")
+
 		return
 
 
 if __name__ == '__main__':
 	mimir = Mimir()
 	mimir.meditate()
-	mimit.test()
+	mimir.test()
