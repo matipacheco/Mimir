@@ -76,21 +76,21 @@ class Mimir:
 	# Descripción:
 	# Método encargado de probar el modelo.
 	##########################################################
-	def test(self):
-		shifts_array       = array([])
-		total_shifts_array = array([])
+	# def test(self):
+	# 	shifts_array       = array([])
+	# 	total_shifts_array = array([])
 
-		total_shifts = DollarRecord.select(DollarRecord.shift).order_by(DollarRecord.id.asc()).tuples()
-		test_shifts  = total_shifts.where(DollarRecord.date >= date.today().replace(day = 1))
+	# 	total_shifts = DollarRecord.select(DollarRecord.shift).order_by(DollarRecord.id.asc()).tuples()
+	# 	test_shifts  = total_shifts.where(DollarRecord.date >= date.today().replace(day = 1))
 
-		for shift in test_shifts:
-			shifts_array = append(shifts_array, shift)
+	# 	for shift in test_shifts:
+	# 		shifts_array = append(shifts_array, shift)
 
-		for shift in total_shifts_array:
-			total_shifts_array = append(total_shifts_array, shift)
+	# 	for shift in total_shifts_array:
+	# 		total_shifts_array = append(total_shifts_array, shift)
 
-		shifts_array       = shifts_array.reshape(-1, 1)
-		total_shifts_array = total_shifts_array.reshape(-1, 1)
+	# 	shifts_array       = shifts_array.reshape(-1, 1)
+	# 	total_shifts_array = total_shifts_array.reshape(-1, 1)
 
 
 	##########################################################

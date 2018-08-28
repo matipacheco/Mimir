@@ -1,7 +1,7 @@
 # Mimir
 The oracle. The dollar predictor.
 
-_Note: This project was put on hold due my lazyness, as well as the project factibility.. Something's not right_ :thinking_face:
+_Note: This project was put on hold... I'm having doubts about something_ :thinking_face:
 
 ## Develepment Environment
 For the creation of the development environment that contains all the necessary dependencies to run the application, I used [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
