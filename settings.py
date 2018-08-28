@@ -1,6 +1,0 @@
-DATABASE_NAME = 'mimirs_well'
-DATABASE_USER = 'root'
-DATABASE_PASS = ''
-DATABASE_HOST = 'localhost'
-
-SBIF_API_KEY = '9eb74377c6a59a984256596691c539ec31ffb2ff'
