@@ -1,15 +1,16 @@
 # Mimir
-The oracle
+The oracle. The dollar predictor.
+_*Note*: This project was put on hold due my lazyness, as well as the project factibility.. Something's not right_
 
-## Preparación ambiente de desarrollo
-Para la creación de un ambiente de desarrollo que contenga todas dependencias necesarias para levantar la aplicación, se utilizó [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+## Develepment environment setup
+For the creation of the development environment that contains all the necessary dependencies to run the application, I used [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
 
-### Instalación
+### Installation
 `sudo apt-get install python3-pip`
 
 `pip3 install virtualenv`
 
-### Dependencias
+### Dependencies
 `virtualenv Mimir`
 
 `virtualenv -p /usr/bin/python3.4 Mimir`
@@ -19,10 +20,10 @@ Para la creación de un ambiente de desarrollo que contenga todas dependencias n
 `pip install -r requirements.txt`
 
 ## Setup
-1. Para la creación de las tablas en la base de datos:
+1. For the database tables creation, run:
 
 `python3 mimirs_well.py`
 
-2. Para poblar la base de datos:
+2. To populate those tables, run:
 
 `python3 brokkr_the_blacksmith.py`
